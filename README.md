@@ -87,7 +87,7 @@ searchAnime('attack on titan').then(data => {
 
    # CentOS/RHEL/Fedora
    curl -fsSL https://rpm.nodesource.com/setup_20.x | sudo bash -
-   sudo yum install -y nodejs
+   sudo dnf install -y nodejs
 
    # Arch Linux
    sudo pacman -S nodejs npm
