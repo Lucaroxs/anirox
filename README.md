@@ -265,7 +265,7 @@ Bu proje MIT lisansı altında lisanslanmıştır. Detaylar için [LICENSE](LICE
 
 ## 👨‍💻 Geliştirici
 
-Anime topluluğu için ❤️ ile geliştirildi.
+Anime topluluğu için Lucaroxs ❤️ ile geliştirildi.
 
 ---
 
