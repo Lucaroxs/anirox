@@ -1,0 +1,691 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AnimeAPI - Developer Portal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'github-dark': '#0d1117',
+                        'github-surface': '#161b22',
+                        'github-card': '#21262d',
+                        'github-border': '#30363d',
+                        'github-text': '#f0f6fc',
+                        'github-text-secondary': '#8b949e',
+                        'github-green': '#238636',
+                        'github-blue': '#1f6feb',
+                        'github-red': '#f85149',
+                        'github-yellow': '#d29922'
+                    },
+                    fontFamily: {
+                        'inter': ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+                        'mono': ['Fira Code', 'Monaco', 'Consolas', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .syntax-highlight .keyword { color: #ff79c6; }
+        .syntax-highlight .string { color: #50fa7b; }
+        .syntax-highlight .number { color: #bd93f9; }
+        .syntax-highlight .comment { color: #6272a4; }
+        .syntax-highlight .function { color: #8be9fd; }
+    </style>
+</head>
+<body class="bg-github-dark text-github-text font-inter">
+    <!-- Header -->
+    <header class="bg-github-surface border-b border-github-border sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <!-- Logo -->
+                <div class="flex items-center space-x-4">
+                    <div class="flex items-center space-x-2">
+                        <i class="fas fa-play-circle text-github-green text-2xl"></i>
+                        <span class="text-xl font-bold">AnimeAPI</span>
+                    </div>
+                    <nav class="hidden md:flex space-x-6 ml-8">
+                        <a href="#overview" class="text-github-text hover:text-github-blue transition-colors">Overview</a>
+                        <a href="#docs" class="text-github-text hover:text-github-blue transition-colors">Documentation</a>
+                        <a href="#playground" class="text-github-text hover:text-github-blue transition-colors">API Playground</a>
+                        <a href="#examples" class="text-github-text hover:text-github-blue transition-colors">Examples</a>
+                    </nav>
+                </div>
+
+                <!-- Right side -->
+                <div class="flex items-center space-x-4">
+                    <button class="bg-github-green hover:bg-opacity-80 text-white px-4 py-2 rounded-md font-medium transition-colors">
+                        Get API Key
+                    </button>
+                    <button class="md:hidden text-github-text">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="flex">
+        <!-- Sidebar -->
+        <aside class="w-64 min-h-screen bg-github-surface border-r border-github-border hidden lg:block">
+            <div class="p-6">
+                <div class="space-y-6">
+                    <!-- Getting Started -->
+                    <div>
+                        <h3 class="text-sm font-semibold text-github-text-secondary uppercase tracking-wider mb-3">Getting Started</h3>
+                        <nav class="space-y-2">
+                            <a href="#quick-start" class="block text-github-text hover:text-github-blue transition-colors">Quick Start</a>
+                            <a href="#authentication" class="block text-github-text hover:text-github-blue transition-colors">Authentication</a>
+                            <a href="#rate-limits" class="block text-github-text hover:text-github-blue transition-colors">Rate Limits</a>
+                        </nav>
+                    </div>
+
+                    <!-- API Reference -->
+                    <div>
+                        <h3 class="text-sm font-semibold text-github-text-secondary uppercase tracking-wider mb-3">API Reference</h3>
+                        <nav class="space-y-2">
+                            <a href="#search-anime" class="block text-github-text hover:text-github-blue transition-colors">
+                                <span class="text-github-green text-xs font-mono mr-2">GET</span>
+                                Search Anime
+                            </a>
+                            <a href="#get-episodes" class="block text-github-text hover:text-github-blue transition-colors">
+                                <span class="text-github-green text-xs font-mono mr-2">GET</span>
+                                Get Episodes
+                            </a>
+                            <a href="#anime-info" class="block text-github-text hover:text-github-blue transition-colors">
+                                <span class="text-github-green text-xs font-mono mr-2">GET</span>
+                                Anime Info
+                            </a>
+                        </nav>
+                    </div>
+
+                    <!-- SDKs & Tools -->
+                    <div>
+                        <h3 class="text-sm font-semibold text-github-text-secondary uppercase tracking-wider mb-3">SDKs & Tools</h3>
+                        <nav class="space-y-2">
+                            <a href="#javascript-sdk" class="block text-github-text hover:text-github-blue transition-colors">JavaScript SDK</a>
+                            <a href="#python-sdk" class="block text-github-text hover:text-github-blue transition-colors">Python SDK</a>
+                            <a href="#postman" class="block text-github-text hover:text-github-blue transition-colors">Postman Collection</a>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 min-h-screen">
+            <!-- Hero Section -->
+            <section class="bg-gradient-to-r from-github-surface to-github-card border-b border-github-border">
+                <div class="max-w-6xl mx-auto px-6 py-16">
+                    <div class="text-center">
+                        <h1 class="text-4xl md:text-5xl font-bold text-github-text mb-6">
+                            Powerful Anime API
+                            <span class="block text-github-green">For Developers</span>
+                        </h1>
+                        <p class="text-xl text-github-text-secondary max-w-2xl mx-auto mb-8">
+                            Access thousands of anime titles, episodes, and metadata through our free, fast, and reliable API. Perfect for building anime applications and services.
+                        </p>
+                        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                            <button class="bg-github-green hover:bg-opacity-80 text-white px-8 py-3 rounded-md font-semibold transition-colors">
+                                <i class="fas fa-rocket mr-2"></i>
+                                Get Started Free
+                            </button>
+                            <button class="border border-github-border hover:bg-github-card text-github-text px-8 py-3 rounded-md font-semibold transition-colors">
+                                <i class="fas fa-play mr-2"></i>
+                                View Documentation
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Stats Section -->
+            <section class="bg-github-surface border-b border-github-border">
+                <div class="max-w-6xl mx-auto px-6 py-12">
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+                        <div class="text-center">
+                            <div class="text-3xl font-bold text-github-green mb-2">10K+</div>
+                            <div class="text-github-text-secondary">Anime Titles</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-3xl font-bold text-github-blue mb-2">500K+</div>
+                            <div class="text-github-text-secondary">Episodes</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-3xl font-bold text-github-yellow mb-2">99.9%</div>
+                            <div class="text-github-text-secondary">Uptime</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-3xl font-bold text-github-red mb-2">Free</div>
+                            <div class="text-github-text-secondary">Forever</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <div class="max-w-6xl mx-auto px-6 py-12">
+                <!-- Quick Start -->
+                <section id="quick-start" class="mb-16">
+                    <h2 class="text-3xl font-bold text-github-text mb-6">Quick Start</h2>
+                    <div class="bg-github-card border border-github-border rounded-lg p-6 mb-8">
+                        <h3 class="text-xl font-semibold text-github-text mb-4">Make your first API call</h3>
+                        <div class="bg-github-dark rounded-lg p-4 font-mono text-sm overflow-x-auto">
+                            <div class="syntax-highlight">
+                                <span class="comment">// Search for anime</span><br>
+                                <span class="keyword">fetch</span>(<span class="string">'https://api.animeapi.dev/search?q=naruto'</span>)<br>
+                                &nbsp;&nbsp;.<span class="function">then</span>(<span class="keyword">response</span> => <span class="keyword">response</span>.<span class="function">json</span>())<br>
+                                &nbsp;&nbsp;.<span class="function">then</span>(<span class="keyword">data</span> => <span class="function">console</span>.<span class="function">log</span>(<span class="keyword">data</span>));
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="bg-github-card border border-github-border rounded-lg p-6">
+                            <h4 class="text-lg font-semibold text-github-text mb-3">
+                                <i class="fas fa-key text-github-green mr-2"></i>
+                                No API Key Required
+                            </h4>
+                            <p class="text-github-text-secondary">Get started immediately without registration. Our API is completely free to use with generous rate limits.</p>
+                        </div>
+                        <div class="bg-github-card border border-github-border rounded-lg p-6">
+                            <h4 class="text-lg font-semibold text-github-text mb-3">
+                                <i class="fas fa-tachometer-alt text-github-blue mr-2"></i>
+                                Fast & Reliable
+                            </h4>
+                            <p class="text-github-text-secondary">Built on modern infrastructure with global CDN. Average response time under 100ms worldwide.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- API Playground -->
+                <section id="playground" class="mb-16">
+                    <h2 class="text-3xl font-bold text-github-text mb-6">API Playground</h2>
+                    <div class="bg-github-card border border-github-border rounded-lg overflow-hidden">
+                        <div class="bg-github-surface px-6 py-4 border-b border-github-border">
+                            <h3 class="text-xl font-semibold text-github-text">Test API Endpoints</h3>
+                        </div>
+                        <div class="p-6">
+                            <!-- Endpoint Selector -->
+                            <div class="mb-6">
+                                <label class="block text-sm font-medium text-github-text mb-2">Select Endpoint</label>
+                                <select class="w-full bg-github-dark border border-github-border rounded-md px-3 py-2 text-github-text focus:ring-2 focus:ring-github-blue focus:border-transparent" data-mock="true" data-implementation="Should populate endpoint selection">
+                                    <option>GET /search - Search Anime</option>
+                                    <option>GET /episodes - Get Episode Videos</option>
+                                    <option>GET /anime-info - Get Anime Information</option>
+                                </select>
+                            </div>
+
+                            <div class="grid lg:grid-cols-2 gap-6">
+                                <!-- Request Panel -->
+                                <div>
+                                    <h4 class="text-lg font-semibold text-github-text mb-4">Request</h4>
+                                    
+                                    <!-- URL -->
+                                    <div class="mb-4">
+                                        <label class="block text-sm font-medium text-github-text mb-2">URL</label>
+                                        <div class="flex">
+                                            <span class="bg-github-green text-white px-3 py-2 rounded-l-md text-sm font-mono">GET</span>
+                                            <input type="text" class="flex-1 bg-github-dark border border-github-border border-l-0 rounded-r-md px-3 py-2 text-github-text font-mono text-sm" value="https://api.animeapi.dev/search" data-mock="true">
+                                        </div>
+                                    </div>
+
+                                    <!-- Parameters -->
+                                    <div class="mb-4">
+                                        <label class="block text-sm font-medium text-github-text mb-2">Parameters</label>
+                                        <div class="space-y-2">
+                                            <div class="flex gap-2">
+                                                <input type="text" placeholder="Parameter name" class="flex-1 bg-github-dark border border-github-border rounded-md px-3 py-2 text-github-text text-sm" value="q" data-mock="true">
+                                                <input type="text" placeholder="Value" class="flex-1 bg-github-dark border border-github-border rounded-md px-3 py-2 text-github-text text-sm" value="naruto" data-mock="true">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <button class="bg-github-green hover:bg-opacity-80 text-white px-6 py-2 rounded-md font-semibold transition-colors" data-event="click:makeApiRequest" data-implementation="Should make actual API request">
+                                        <i class="fas fa-paper-plane mr-2"></i>
+                                        Send Request
+                                    </button>
+                                </div>
+
+                                <!-- Response Panel -->
+                                <div>
+                                    <h4 class="text-lg font-semibold text-github-text mb-4">Response</h4>
+                                    <div class="bg-github-dark border border-github-border rounded-lg p-4 min-h-[300px]">
+                                        <div class="flex items-center justify-between mb-3">
+                                            <span class="text-github-green text-sm font-semibold">200 OK</span>
+                                            <span class="text-github-text-secondary text-sm">Response time: 87ms</span>
+                                        </div>
+                                        <pre class="text-sm text-github-text overflow-x-auto" data-mock="true"><code class="syntax-highlight">{
+  <span class="string">"success"</span>: <span class="keyword">true</span>,
+  <span class="string">"data"</span>: [
+    {
+      <span class="string">"id"</span>: <span class="number">1735</span>,
+      <span class="string">"name"</span>: <span class="string">"Naruto"</span>,
+      <span class="string">"name_english"</span>: <span class="string">"Naruto"</span>,
+      <span class="string">"description"</span>: <span class="string">"A young ninja's journey..."</span>,
+      <span class="string">"poster"</span>: <span class="string">"https://image.tmdb.org/..."</span>,
+      <span class="string">"year"</span>: <span class="number">2002</span>,
+      <span class="string">"episode_count"</span>: <span class="number">720</span>,
+      <span class="string">"genres"</span>: [<span class="string">"Action"</span>, <span class="string">"Adventure"</span>],
+      <span class="string">"rating"</span>: <span class="number">8.3</span>
+    }
+  ]
+}</code></pre>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- API Documentation -->
+                <section id="docs" class="mb-16">
+                    <h2 class="text-3xl font-bold text-github-text mb-6">API Documentation</h2>
+                    
+                    <!-- Search Endpoint -->
+                    <div id="search-anime" class="mb-12">
+                        <div class="bg-github-card border border-github-border rounded-lg overflow-hidden">
+                            <div class="bg-github-surface px-6 py-4 border-b border-github-border">
+                                <div class="flex items-center gap-3">
+                                    <span class="bg-github-green text-white px-3 py-1 rounded text-sm font-mono">GET</span>
+                                    <span class="text-xl font-semibold text-github-text">/search</span>
+                                </div>
+                                <p class="text-github-text-secondary mt-2">Search for anime by name</p>
+                            </div>
+                            <div class="p-6">
+                                <div class="grid lg:grid-cols-2 gap-8">
+                                    <div>
+                                        <h4 class="text-lg font-semibold text-github-text mb-4">Parameters</h4>
+                                        <div class="space-y-4">
+                                            <div class="border border-github-border rounded-lg p-4">
+                                                <div class="flex items-center gap-2 mb-2">
+                                                    <span class="font-mono text-sm text-github-green">q</span>
+                                                    <span class="bg-github-red text-white px-2 py-1 text-xs rounded">required</span>
+                                                </div>
+                                                <p class="text-sm text-github-text-secondary">The anime name to search for</p>
+                                            </div>
+                                        </div>
+
+                                        <h4 class="text-lg font-semibold text-github-text mb-4 mt-8">Example Request</h4>
+                                        <div class="bg-github-dark rounded-lg p-4">
+                                            <pre class="text-sm text-github-text"><code>GET https://api.animeapi.dev/search?q=attack%20on%20titan</code></pre>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-lg font-semibold text-github-text mb-4">Response Schema</h4>
+                                        <div class="bg-github-dark rounded-lg p-4">
+                                            <pre class="text-sm text-github-text overflow-x-auto"><code class="syntax-highlight">{
+  <span class="string">"success"</span>: <span class="keyword">boolean</span>,
+  <span class="string">"data"</span>: [
+    {
+      <span class="string">"id"</span>: <span class="keyword">integer</span>,
+      <span class="string">"name"</span>: <span class="keyword">string</span>,
+      <span class="string">"name_english"</span>: <span class="keyword">string</span>,
+      <span class="string">"description"</span>: <span class="keyword">string</span>,
+      <span class="string">"poster"</span>: <span class="keyword">string</span>,
+      <span class="string">"backdrop"</span>: <span class="keyword">string</span>,
+      <span class="string">"year"</span>: <span class="keyword">integer</span>,
+      <span class="string">"episode_count"</span>: <span class="keyword">integer</span>,
+      <span class="string">"genres"</span>: [<span class="keyword">string</span>],
+      <span class="string">"rating"</span>: <span class="keyword">number</span>
+    }
+  ]
+}</code></pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Episodes Endpoint -->
+                    <div id="get-episodes" class="mb-12">
+                        <div class="bg-github-card border border-github-border rounded-lg overflow-hidden">
+                            <div class="bg-github-surface px-6 py-4 border-b border-github-border">
+                                <div class="flex items-center gap-3">
+                                    <span class="bg-github-green text-white px-3 py-1 rounded text-sm font-mono">GET</span>
+                                    <span class="text-xl font-semibold text-github-text">/episodes</span>
+                                </div>
+                                <p class="text-github-text-secondary mt-2">Get episode video links and information</p>
+                            </div>
+                            <div class="p-6">
+                                <div class="grid lg:grid-cols-2 gap-8">
+                                    <div>
+                                        <h4 class="text-lg font-semibold text-github-text mb-4">Parameters</h4>
+                                        <div class="space-y-4">
+                                            <div class="border border-github-border rounded-lg p-4">
+                                                <div class="flex items-center gap-2 mb-2">
+                                                    <span class="font-mono text-sm text-github-green">titleId</span>
+                                                    <span class="bg-github-red text-white px-2 py-1 text-xs rounded">required</span>
+                                                </div>
+                                                <p class="text-sm text-github-text-secondary">The anime ID from search results</p>
+                                            </div>
+                                            <div class="border border-github-border rounded-lg p-4">
+                                                <div class="flex items-center gap-2 mb-2">
+                                                    <span class="font-mono text-sm text-github-green">season</span>
+                                                    <span class="bg-github-red text-white px-2 py-1 text-xs rounded">required</span>
+                                                </div>
+                                                <p class="text-sm text-github-text-secondary">Season number (default: 1)</p>
+                                            </div>
+                                            <div class="border border-github-border rounded-lg p-4">
+                                                <div class="flex items-center gap-2 mb-2">
+                                                    <span class="font-mono text-sm text-github-green">episode</span>
+                                                    <span class="bg-github-red text-white px-2 py-1 text-xs rounded">required</span>
+                                                </div>
+                                                <p class="text-sm text-github-text-secondary">Episode number</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-lg font-semibold text-github-text mb-4">Response Schema</h4>
+                                        <div class="bg-github-dark rounded-lg p-4">
+                                            <pre class="text-sm text-github-text overflow-x-auto"><code class="syntax-highlight">{
+  <span class="string">"success"</span>: <span class="keyword">boolean</span>,
+  <span class="string">"data"</span>: {
+    <span class="string">"episode_info"</span>: {
+      <span class="string">"name"</span>: <span class="keyword">string</span>,
+      <span class="string">"description"</span>: <span class="keyword">string</span>,
+      <span class="string">"poster"</span>: <span class="keyword">string</span>
+    },
+    <span class="string">"sources"</span>: {
+      <span class="string">"provider_name"</span>: [
+        {
+          <span class="string">"id"</span>: <span class="keyword">string</span>,
+          <span class="string">"url"</span>: <span class="keyword">string</span>,
+          <span class="string">"quality"</span>: <span class="keyword">string</span>,
+          <span class="string">"language"</span>: <span class="keyword">string</span>
+        }
+      ]
+    }
+  }
+}</code></pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Anime Info Endpoint -->
+                    <div id="anime-info" class="mb-12">
+                        <div class="bg-github-card border border-github-border rounded-lg overflow-hidden">
+                            <div class="bg-github-surface px-6 py-4 border-b border-github-border">
+                                <div class="flex items-center gap-3">
+                                    <span class="bg-github-green text-white px-3 py-1 rounded text-sm font-mono">GET</span>
+                                    <span class="text-xl font-semibold text-github-text">/anime-info</span>
+                                </div>
+                                <p class="text-github-text-secondary mt-2">Get detailed information about a specific anime</p>
+                            </div>
+                            <div class="p-6">
+                                <div class="grid lg:grid-cols-2 gap-8">
+                                    <div>
+                                        <h4 class="text-lg font-semibold text-github-text mb-4">Parameters</h4>
+                                        <div class="space-y-4">
+                                            <div class="border border-github-border rounded-lg p-4">
+                                                <div class="flex items-center gap-2 mb-2">
+                                                    <span class="font-mono text-sm text-github-green">titleId</span>
+                                                    <span class="bg-github-red text-white px-2 py-1 text-xs rounded">required</span>
+                                                </div>
+                                                <p class="text-sm text-github-text-secondary">The anime ID from search results</p>
+                                            </div>
+                                        </div>
+
+                                        <h4 class="text-lg font-semibold text-github-text mb-4 mt-8">Example Request</h4>
+                                        <div class="bg-github-dark rounded-lg p-4">
+                                            <pre class="text-sm text-github-text"><code>GET https://api.animeapi.dev/anime-info?titleId=1735</code></pre>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-lg font-semibold text-github-text mb-4">Response Schema</h4>
+                                        <div class="bg-github-dark rounded-lg p-4">
+                                            <pre class="text-sm text-github-text overflow-x-auto"><code class="syntax-highlight">{
+  <span class="string">"success"</span>: <span class="keyword">boolean</span>,
+  <span class="string">"data"</span>: {
+    <span class="string">"message"</span>: <span class="keyword">string</span>,
+    <span class="string">"url"</span>: <span class="keyword">string</span>,
+    <span class="string">"note"</span>: <span class="keyword">string</span>
+  }
+}</code></pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Code Examples -->
+                <section id="examples" class="mb-16">
+                    <h2 class="text-3xl font-bold text-github-text mb-6">Code Examples</h2>
+                    
+                    <div class="bg-github-card border border-github-border rounded-lg overflow-hidden">
+                        <div class="bg-github-surface border-b border-github-border">
+                            <div class="flex space-x-1 p-1">
+                                <button class="px-4 py-2 text-sm font-medium rounded text-github-text bg-github-blue">JavaScript</button>
+                                <button class="px-4 py-2 text-sm font-medium rounded text-github-text-secondary hover:text-github-text hover:bg-github-card">Python</button>
+                                <button class="px-4 py-2 text-sm font-medium rounded text-github-text-secondary hover:text-github-text hover:bg-github-card">cURL</button>
+                                <button class="px-4 py-2 text-sm font-medium rounded text-github-text-secondary hover:text-github-text hover:bg-github-card">PHP</button>
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <div class="bg-github-dark rounded-lg p-4">
+                                <pre class="text-sm text-github-text overflow-x-auto"><code class="syntax-highlight"><span class="comment">// Using fetch API</span>
+<span class="keyword">async</span> <span class="keyword">function</span> <span class="function">searchAnime</span>(<span class="keyword">query</span>) {
+  <span class="keyword">try</span> {
+    <span class="keyword">const</span> response = <span class="keyword">await</span> <span class="function">fetch</span>(
+      <span class="string">`https://api.animeapi.dev/search?q=</span>${<span class="function">encodeURIComponent</span>(<span class="keyword">query</span>)}<span class="string">`</span>
+    );
+    
+    <span class="keyword">if</span> (!response.<span class="keyword">ok</span>) {
+      <span class="keyword">throw</span> <span class="keyword">new</span> <span class="function">Error</span>(<span class="string">`HTTP error! status: </span>${response.<span class="keyword">status</span>}<span class="string">`</span>);
+    }
+    
+    <span class="keyword">const</span> data = <span class="keyword">await</span> response.<span class="function">json</span>();
+    <span class="keyword">return</span> data;
+    
+  } <span class="keyword">catch</span> (error) {
+    <span class="function">console</span>.<span class="function">error</span>(<span class="string">'Error searching anime:'</span>, error);
+    <span class="keyword">throw</span> error;
+  }
+}
+
+<span class="comment">// Usage</span>
+<span class="function">searchAnime</span>(<span class="string">'one piece'</span>)
+  .<span class="function">then</span>(<span class="keyword">data</span> => {
+    <span class="function">console</span>.<span class="function">log</span>(<span class="string">'Found anime:'</span>, data.<span class="keyword">data</span>);
+  })
+  .<span class="function">catch</span>(<span class="keyword">error</span> => {
+    <span class="function">console</span>.<span class="function">error</span>(<span class="string">'Search failed:'</span>, error);
+  });</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Rate Limiting -->
+                <section id="rate-limits" class="mb-16">
+                    <h2 class="text-3xl font-bold text-github-text mb-6">Rate Limits</h2>
+                    <div class="bg-github-card border border-github-border rounded-lg p-6">
+                        <div class="grid md:grid-cols-3 gap-6">
+                            <div class="text-center">
+                                <div class="text-2xl font-bold text-github-green mb-2">1000</div>
+                                <div class="text-github-text-secondary">Requests per hour</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-2xl font-bold text-github-blue mb-2">50</div>
+                                <div class="text-github-text-secondary">Requests per minute</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-2xl font-bold text-github-yellow mb-2">5</div>
+                                <div class="text-github-text-secondary">Concurrent connections</div>
+                            </div>
+                        </div>
+                        <div class="mt-6 p-4 bg-github-dark rounded-lg">
+                            <h4 class="text-lg font-semibold text-github-text mb-2">Rate Limit Headers</h4>
+                            <pre class="text-sm text-github-text-secondary"><code>X-RateLimit-Limit: 1000
+X-RateLimit-Remaining: 999
+X-RateLimit-Reset: 1640995200</code></pre>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-github-surface border-t border-github-border mt-16">
+        <div class="max-w-6xl mx-auto px-6 py-12">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div class="col-span-2">
+                    <div class="flex items-center space-x-2 mb-4">
+                        <i class="fas fa-play-circle text-github-green text-2xl"></i>
+                        <span class="text-xl font-bold text-github-text">AnimeAPI</span>
+                    </div>
+                    <p class="text-github-text-secondary mb-4">
+                        Free and powerful anime API for developers. Built with ❤️ for the anime community.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-github-text-secondary hover:text-github-text transition-colors">
+                            <i class="fab fa-github text-xl"></i>
+                        </a>
+                        <a href="#" class="text-github-text-secondary hover:text-github-text transition-colors">
+                            <i class="fab fa-twitter text-xl"></i>
+                        </a>
+                        <a href="#" class="text-github-text-secondary hover:text-github-text transition-colors">
+                            <i class="fab fa-discord text-xl"></i>
+                        </a>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="text-github-text font-semibold mb-4">Resources</h4>
+                    <nav class="space-y-2">
+                        <a href="#" class="block text-github-text-secondary hover:text-github-text transition-colors">Documentation</a>
+                        <a href="#" class="block text-github-text-secondary hover:text-github-text transition-colors">API Reference</a>
+                        <a href="#" class="block text-github-text-secondary hover:text-github-text transition-colors">Status Page</a>
+                        <a href="#" class="block text-github-text-secondary hover:text-github-text transition-colors">Changelog</a>
+                    </nav>
+                </div>
+                <div>
+                    <h4 class="text-github-text font-semibold mb-4">Support</h4>
+                    <nav class="space-y-2">
+                        <a href="#" class="block text-github-text-secondary hover:text-github-text transition-colors">Help Center</a>
+                        <a href="#" class="block text-github-text-secondary hover:text-github-text transition-colors">Contact Us</a>
+                        <a href="#" class="block text-github-text-secondary hover:text-github-text transition-colors">Report Issues</a>
+                        <a href="#" class="block text-github-text-secondary hover:text-github-text transition-colors">Terms of Service</a>
+                    </nav>
+                </div>
+            </div>
+            <div class="border-t border-github-border pt-8 mt-8">
+                <p class="text-github-text-secondary text-center">
+                    © 2024 AnimeAPI. All rights reserved. Made with ❤️ for developers.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        (function() {
+            // TODO: Implement business logic, API calls, or state management
+            
+            // Smooth scrolling for navigation links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+
+            // Mobile menu toggle
+            const mobileMenuButton = document.querySelector('.md\\:hidden button');
+            if (mobileMenuButton) {
+                mobileMenuButton.addEventListener('click', function() {
+                    // TODO: Implement mobile menu toggle functionality
+                    console.log('Mobile menu toggle clicked');
+                });
+            }
+
+            // API Playground functionality
+            const sendRequestButton = document.querySelector('[data-event="click:makeApiRequest"]');
+            if (sendRequestButton) {
+                sendRequestButton.addEventListener('click', function() {
+                    // TODO: Implement actual API request functionality
+                    console.log('API request would be sent here');
+                    
+                    // Show loading state
+                    this.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Sending...';
+                    this.disabled = true;
+                    
+                    // Simulate API response
+                    setTimeout(() => {
+                        this.innerHTML = '<i class="fas fa-paper-plane mr-2"></i>Send Request';
+                        this.disabled = false;
+                        
+                        // Update response panel with mock data
+                        // TODO: Replace with actual API response handling
+                    }, 1500);
+                });
+            }
+
+            // Tab switching for code examples
+            const codeTabs = document.querySelectorAll('.bg-github-surface button');
+            codeTabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    // Remove active class from all tabs
+                    codeTabs.forEach(t => {
+                        t.classList.remove('bg-github-blue');
+                        t.classList.add('text-github-text-secondary');
+                    });
+                    
+                    // Add active class to clicked tab
+                    this.classList.add('bg-github-blue');
+                    this.classList.remove('text-github-text-secondary');
+                    this.classList.add('text-github-text');
+                    
+                    // TODO: Switch code example content based on selected language
+                    console.log(`Switched to ${this.textContent} code example`);
+                });
+            });
+
+            // Highlight current section in sidebar
+            function highlightCurrentSection() {
+                const sections = document.querySelectorAll('section[id]');
+                const sidebarLinks = document.querySelectorAll('aside a[href^="#"]');
+                
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const id = entry.target.getAttribute('id');
+                            sidebarLinks.forEach(link => {
+                                link.classList.remove('text-github-blue');
+                                link.classList.add('text-github-text');
+                                if (link.getAttribute('href') === `#${id}`) {
+                                    link.classList.add('text-github-blue');
+                                    link.classList.remove('text-github-text');
+                                }
+                            });
+                        }
+                    });
+                }, {
+                    rootMargin: '-50px 0px -50px 0px'
+                });
+
+                sections.forEach(section => observer.observe(section));
+            }
+
+            // Initialize section highlighting
+            highlightCurrentSection();
+            
+        })();
+    </script>
+</body>
+</html>

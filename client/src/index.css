@@ -1,0 +1,142 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* GitHub dark theme colors */
+  --github-dark: hsl(220, 13%, 6%);
+  --github-surface: hsl(220, 13%, 9%);
+  --github-card: hsl(220, 13%, 13%);
+  --github-border: hsl(220, 13%, 19%);
+  --github-text: hsl(213, 31%, 91%);
+  --github-text-secondary: hsl(218, 10%, 58%);
+  --github-green: hsl(137, 55%, 36%);
+  --github-blue: hsl(212, 92%, 45%);
+  --github-red: hsl(6, 93%, 61%);
+  --github-yellow: hsl(35, 74%, 49%);
+
+  /* Shadcn compatible variables */
+  --background: var(--github-dark);
+  --foreground: var(--github-text);
+  --card: var(--github-card);
+  --card-foreground: var(--github-text);
+  --popover: var(--github-card);
+  --popover-foreground: var(--github-text);
+  --primary: var(--github-green);
+  --primary-foreground: hsl(0, 0%, 100%);
+  --secondary: var(--github-surface);
+  --secondary-foreground: var(--github-text);
+  --muted: var(--github-surface);
+  --muted-foreground: var(--github-text-secondary);
+  --accent: var(--github-card);
+  --accent-foreground: var(--github-text);
+  --destructive: var(--github-red);
+  --destructive-foreground: hsl(0, 0%, 100%);
+  --border: var(--github-border);
+  --input: var(--github-surface);
+  --ring: var(--github-blue);
+  
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-mono: 'Fira Code', Monaco, Consolas, monospace;
+  --radius: 0.5rem;
+}
+
+.dark {
+  --background: var(--github-dark);
+  --foreground: var(--github-text);
+  --card: var(--github-card);
+  --card-foreground: var(--github-text);
+  --popover: var(--github-card);
+  --popover-foreground: var(--github-text);
+  --primary: var(--github-green);
+  --primary-foreground: hsl(0, 0%, 100%);
+  --secondary: var(--github-surface);
+  --secondary-foreground: var(--github-text);
+  --muted: var(--github-surface);
+  --muted-foreground: var(--github-text-secondary);
+  --accent: var(--github-card);
+  --accent-foreground: var(--github-text);
+  --destructive: var(--github-red);
+  --destructive-foreground: hsl(0, 0%, 100%);
+  --border: var(--github-border);
+  --input: var(--github-surface);
+  --ring: var(--github-blue);
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply font-sans antialiased bg-background text-foreground;
+    font-family: var(--font-sans);
+  }
+}
+
+@layer utilities {
+  /* GitHub theme color utilities */
+  .bg-github-dark { background-color: var(--github-dark); }
+  .bg-github-surface { background-color: var(--github-surface); }
+  .bg-github-card { background-color: var(--github-card); }
+  .bg-github-green { background-color: var(--github-green); }
+  .bg-github-blue { background-color: var(--github-blue); }
+  .bg-github-red { background-color: var(--github-red); }
+  .bg-github-yellow { background-color: var(--github-yellow); }
+  
+  .text-github-text { color: var(--github-text); }
+  .text-github-text-secondary { color: var(--github-text-secondary); }
+  .text-github-green { color: var(--github-green); }
+  .text-github-blue { color: var(--github-blue); }
+  .text-github-red { color: var(--github-red); }
+  .text-github-yellow { color: var(--github-yellow); }
+  
+  .border-github-border { border-color: var(--github-border); }
+  
+  .font-mono { font-family: var(--font-mono); }
+}
+
+/* Syntax highlighting for code examples */
+.syntax-highlight .keyword { color: #ff79c6; }
+.syntax-highlight .string { color: #50fa7b; }
+.syntax-highlight .number { color: #bd93f9; }
+.syntax-highlight .comment { color: #6272a4; }
+.syntax-highlight .function { color: #8be9fd; }
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom scrollbar for dark theme */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--github-surface);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--github-border);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--github-text-secondary);
+}
+
+/* Pre and code styling */
+pre {
+  overflow-x: auto;
+  white-space: pre-wrap;
+  word-break: break-all;
+  font-family: var(--font-mono);
+}
+
+code {
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  color: var(--github-text);
+}

@@ -1,0 +1,153 @@
+<?php
+class AniseaAPI {
+    private $baseUrl = 'https://animecix.tv/secure';
+    private $userAgent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36';
+    
+    public function searchAnime($query) {
+        $url = $this->baseUrl . '/search/' . urlencode($query) . '?type=&limit=8&provider=';
+        
+        $response = $this->makeRequest($url);
+        $data = json_decode($response, true);
+        
+        if (!$data || !isset($data['results'])) {
+            throw new Exception('Anime bulunamadı');
+        }
+        
+        $results = [];
+        foreach ($data['results'] as $anime) {
+            $results[] = [
+                'id' => $anime['id'],
+                'name' => $anime['name'],
+                'name_english' => $anime['name_english'] ?? '',
+                'description' => $anime['description'] ?? '',
+                'poster' => $anime['poster'] ?? '',
+                'backdrop' => $anime['backdrop'] ?? '',
+                'year' => $anime['year'] ?? '',
+                'episode_count' => $anime['episode_count'] ?? 0,
+                'season_count' => $anime['season_count'] ?? 1,
+                'genres' => array_map(function($genre) {
+                    return $genre['display_name'];
+                }, $anime['genres'] ?? []),
+                'rating' => $anime['tmdb_vote_average'] ?? 0
+            ];
+        }
+        
+        return $results;
+    }
+    
+    public function getEpisodeVideos($titleId, $season, $episode) {
+        $url = $this->baseUrl . '/episode-videos-points?titleId=' . $titleId . '&episode=' . $episode . '&season=' . $season;
+        
+        $response = $this->makeRequest($url);
+        $data = json_decode($response, true);
+        
+        if (!$data || !isset($data['videos'])) {
+            throw new Exception('Video bulunamadı');
+        }
+        
+        $videos = [];
+        $sources = [];
+        
+        foreach ($data['videos'] as $video) {
+            $sourceName = $video['name'];
+            $quality = $video['quality'] ?? 'regular';
+            $extra = $video['extra'] ?? '';
+            
+            if (!isset($sources[$sourceName])) {
+                $sources[$sourceName] = [];
+            }
+            
+            $sources[$sourceName][] = [
+                'id' => $video['id'],
+                'url' => $video['url'],
+                'quality' => $quality,
+                'extra' => $extra,
+                'language' => $video['language'] ?? 'tr',
+                'votes' => [
+                    'positive' => $video['positive_votes'] ?? 0,
+                    'negative' => $video['negative_votes'] ?? 0
+                ]
+            ];
+        }
+        
+        // Episode bilgilerini de ekle
+        $episodeInfo = null;
+        if (isset($data['episodeList']) && !empty($data['episodeList'])) {
+            $currentEpisode = array_filter($data['episodeList'], function($ep) use ($episode, $season) {
+                return $ep['episode_number'] == $episode && $ep['season_number'] == $season;
+            });
+            
+            if (!empty($currentEpisode)) {
+                $ep = array_values($currentEpisode)[0];
+                $episodeInfo = [
+                    'name' => $ep['name'] ?? '',
+                    'description' => $ep['description'] ?? '',
+                    'poster' => $ep['poster'] ?? '',
+                    'release_date' => $ep['release_date'] ?? '',
+                    'sub_name' => $ep['sub_name'] ?? ''
+                ];
+            }
+        }
+        
+        return [
+            'episode_info' => $episodeInfo,
+            'sources' => $sources,
+            'translator_points' => $data['translatorPoints'] ?? [],
+            'total_videos' => count($data['videos'])
+        ];
+    }
+    
+    public function getAnimeInfo($titleId) {
+        // Anime detay sayfasından bilgi çek
+        $url = "https://animecix.tv/titles/{$titleId}";
+        
+        $response = $this->makeRequest($url);
+        
+        // Bu basit bir HTML parse örneği - gerçek uygulamada daha gelişmiş parsing gerekebilir
+        if (strpos($response, 'title') !== false) {
+            return [
+                'message' => 'Anime bilgileri mevcut',
+                'url' => $url,
+                'note' => 'Detaylı bilgi için web sayfasını ziyaret edin'
+            ];
+        }
+        
+        throw new Exception('Anime bilgisi bulunamadı');
+    }
+    
+    private function makeRequest($url) {
+        $ch = curl_init();
+        
+        curl_setopt_array($ch, [
+            CURLOPT_URL => $url,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_TIMEOUT => 30,
+            CURLOPT_USERAGENT => $this->userAgent,
+            CURLOPT_HTTPHEADER => [
+                'Accept: application/json, text/plain, */*',
+                'Accept-Language: tr-TR,tr;q=0.9,en;q=0.8',
+                'Referer: https://animecix.tv/',
+            ],
+            CURLOPT_SSL_VERIFYPEER => false,
+            CURLOPT_SSL_VERIFYHOST => false
+        ]);
+        
+        $response = curl_exec($ch);
+        $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        
+        if (curl_error($ch)) {
+            curl_close($ch);
+            throw new Exception('İstek hatası: ' . curl_error($ch));
+        }
+        
+        curl_close($ch);
+        
+        if ($httpCode !== 200) {
+            throw new Exception('HTTP Hatası: ' . $httpCode);
+        }
+        
+        return $response;
+    }
+}
+?>
